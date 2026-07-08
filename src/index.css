@@ -1,8 +1,30 @@
+html,
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: crosshair;
+}
+
+#app > div {
+  background: rgba(30, 30, 30, 0.9);
+  color: white;
+
+  padding: 24px 36px;
+  border-radius: 16px;
+
+  text-align: center;
 }
