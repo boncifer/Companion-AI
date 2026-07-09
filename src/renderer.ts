@@ -1,33 +1,64 @@
-/**
- * This file will automatically be loaded by vite and run in the "renderer" context.
- * To learn more about the differences between the "main" and the "renderer" context in
- * Electron, visit:
- *
- * https://electronjs.org/docs/tutorial/process-model
- *
- * By default, Node.js integration in this file is disabled. When enabling Node.js integration
- * in a renderer process, please be aware of potential security implications. You can read
- * more about security risks here:
- *
- * https://electronjs.org/docs/tutorial/security
- *
- * To enable Node.js integration in this file, open up `main.ts` and enable the `nodeIntegration`
- * flag:
- *
- * ```
- *  // Create the browser window.
- *  mainWindow = new BrowserWindow({
- *    width: 800,
- *    height: 600,
- *    webPreferences: {
- *      nodeIntegration: true
- *    }
- *  });
- * ```
- */
-
 import './index.css';
 
-console.log(
-  '👋 This message is being logged by "renderer.ts", included via Vite',
-);
+// @ts-ignore
+// @ts-ignore
+
+
+const app = document.getElementById('app')!;
+const selection = document.getElementById('selection')!;
+
+let isDragging = false;
+
+let startX = 0;
+let startY = 0;
+
+let selectionRect = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+};
+
+app.addEventListener('mousedown', (e) => {
+  isDragging = true;
+
+  startX = e.clientX;
+  startY = e.clientY;
+
+  selection.style.display = 'block';
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+
+  const left = Math.min(startX, e.clientX);
+  const top = Math.min(startY, e.clientY);
+  const width = Math.abs(e.clientX - startX);
+  const height = Math.abs(e.clientY - startY);
+
+  selection.style.left = `${left}px`;
+  selection.style.top = `${top}px`;
+  selection.style.width = `${width}px`;
+  selection.style.height = `${height}px`;
+  selectionRect = {
+  x: left,
+  y: top,
+  width,
+  height,
+};
+});
+
+app.addEventListener('mouseup', () => {
+  if (!isDragging) return;
+
+  isDragging = false;
+  console.log(selectionRect);
+
+  // @ts-ignore
+window.companion.captureScreen().then((result: any) => {
+  console.log(result);
+  alert(JSON.stringify(result));
+});
+
+  // selection.style.display = 'none';
+});

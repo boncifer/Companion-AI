@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, dialog } from 'electron';
+import { app, BrowserWindow, globalShortcut, dialog, ipcMain } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 
@@ -42,7 +42,15 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
+  
+
   createWindow();
+  ipcMain.handle('capture-screen', async () => {
+  console.log('Capture requested!');
+  return {
+    success: true,
+  };
+});
 
   globalShortcut.register('CommandOrControl+Shift+Space', () => {
     if (mainWindow.isVisible()) {

@@ -19,7 +19,7 @@ body {
   cursor: crosshair;
 }
 
-#app > div {
+#panel {
   background: rgba(30, 30, 30, 0.9);
   color: white;
 
@@ -27,4 +27,15 @@ body {
   border-radius: 16px;
 
   text-align: center;
+}
+
+#selection {
+  position: fixed;
+
+  display: none;
+
+  border: 1px solid #ff0000;
+  background: rgba(77, 163, 255, 0.2);
+
+  pointer-events: none;
 }
